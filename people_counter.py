@@ -47,6 +47,8 @@ CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
 # load our serialized model from disk
 print("[INFO] loading model...")
 net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
+#net.setPreferableBackend(cv2.dnn.DNN_BACKEND_TIMVX)
+#net.setPreferableTarget(cv2.dnn.DNN_TARGET_NPU)
 
 # if a video path was not supplied, grab a reference to the webcam
 if not args.get("input", False):
@@ -99,6 +101,7 @@ while True:
 	# less data we have, the faster we can process it), then convert
 	# the frame from BGR to RGB for dlib
 	frame = imutils.resize(frame, width=500)
+	#frame = cv2.resize(frame, dsize=(480, 320), interpolation=cv2.INTER_LINEAR)
 	rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
 	# if the frame dimensions are empty, set them
